@@ -1,0 +1,59 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 400px;
+}
+
+.container h1 {
+  color: rgb(255, 255, 255);
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 5px 0;
+  border-bottom: 2px solid rgb(255, 255, 255);
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.inputContainer label {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 5px;
+  padding-left: 5px;
+}
+
+.inputContainer input,
+select {
+  padding: 10px;
+  font-size: 1.1rem;
+  background-color: rgb(85, 82, 82);
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgb(41, 39, 39);
+}
+
+.inputContainer input:focus {
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.joinButton {
+  width: 100%;
+}
+
+.joinButton button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 2px;
+  background-color: rgb(112, 112, 112);
+  text-transform: uppercase;
+  font-size: 1.1rem;
+  margin-top: 20px;
+  cursor: pointer;
+}
