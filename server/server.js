@@ -9,10 +9,14 @@ const PORT = process.env.PORT || 5000;
 app.use(route);
 
 io.on("connection", (socket) => {
-  console.log("Someone connect to me!", socket);
+  console.log("Someone connect to me!");
 
   socket.on("disconnect", () => {
     console.log("Bye! Nice to see you!");
+  });
+
+  socket.on("join", ({ nickname, room }) => {
+    console.log(nickname, room);
   });
 });
 

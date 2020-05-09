@@ -10,7 +10,7 @@ function App() {
     <div className="layout">
       <BrowserRouter>
         <Route path="/" exact component={Join} />
-        <Route path="/chat" exact component={Chat} />
+        <Route path="/chat" component={Chat} />
       </BrowserRouter>
     </div>
   );
