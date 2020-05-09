@@ -46,7 +46,7 @@ const Join = () => {
       </div>
 
       <Link
-        to={{ pathname: `/chat?nickname=${nickname}&room=${room}` }}
+        to={`/chat?nickname=${nickname}&room=${room}`}
         className={styles.joinButton}
         onClick={(e) => (!nickname || !room ? e.preventDefault() : null)}
       >

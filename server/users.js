@@ -1,9 +1,12 @@
 const users = [];
 
 const addUser = ({ id, nickname, room }) => {
+  nickname = normalizeInput(nickname);
+  room = normalizeInput(room);
+
   const userIdx = getUserIdx({ nickname, room });
 
-  if (userIdx === -1) {
+  if (userIdx !== -1) {
     return {
       error: "User already exists",
     };
@@ -11,23 +14,30 @@ const addUser = ({ id, nickname, room }) => {
 
   users.push({ id, nickname, room });
 
-  return { id, nickname, room };
+  return { user: { id, nickname, room } };
 };
 
-const removeUser = ({ id, nickname, room }) => {
-  const userIdx = getUserIdx({ nickname, room });
-
-  if (userIdx === -1) {
+const removeUser = (id) => {
+  if (id < 0) {
     return {
-      error: "User not found!",
+      error: "Invalid user id!",
     };
   }
-  users.splice(userIdx, 1);
-  return { id, nickname, room };
+
+  const userRemoved = users.splice(id, 1);
+
+  return userRemoved[0];
 };
 
 const getUserById = (id) => {
-  return users.find((user) => user.id === id)[0];
+  const user = users.find((user) => user.id === id);
+  if (user) {
+    return user;
+  }
+};
+
+const getUsersInRoom = (room) => {
+  return users.find((user) => user.room === room);
 };
 
 const getUserIdx = ({ nickname, room }) => {
@@ -36,4 +46,6 @@ const getUserIdx = ({ nickname, room }) => {
   );
 };
 
-module.exports = { addUser, removeUser, getUserById };
+const normalizeInput = (input) => input.trim().toLowerCase();
+
+module.exports = { addUser, removeUser, getUserById, getUsersInRoom };
