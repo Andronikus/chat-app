@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import queryString from "query-string";
 import io from "socket.io-client";
 
+import ChatHeader from "../chatHeader/chat-header.component";
+
 import styles from "./chat.module.css";
 
 let socket;
@@ -41,13 +43,16 @@ const Chat = ({ location }) => {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
+      <ChatHeader nickname={nickname} />
+      {/*
       <input
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         onKeyPress={(e) => (e.key === "Enter" ? sendMessage(e) : null)}
       />
+      */}
     </div>
   );
 };
