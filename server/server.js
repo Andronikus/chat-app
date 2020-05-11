@@ -25,12 +25,12 @@ io.on("connection", (socket) => {
 
     socket.emit("message", {
       user: "admin",
-      message: `${nickname}, Welcome to ${room} chat room`,
+      text: `${nickname}, Welcome to ${room} chat room`,
     });
 
     socket.broadcast.to(user.room).emit("message", {
       user: "admin",
-      message: `${nickname},joined to room`,
+      text: `${nickname},joined to room`,
     });
 
     socket.join(user.room);
@@ -38,11 +38,12 @@ io.on("connection", (socket) => {
     callback();
   });
 
-  socket.on("sendMessage", ({ message }, callback) => {
+  socket.on("sendMessage", ({ text }, callback) => {
     const user = getUserById(socket.id);
 
     if (user) {
-      io.to(user.room).emit("message", { user: user.nickname, message });
+      console.log("emit message to room");
+      io.to(user.room).emit("message", { user: user.nickname, text });
     }
     callback();
   });
