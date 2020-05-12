@@ -1,0 +1,43 @@
+.container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.alignCenter {
+  justify-content: center;
+}
+
+.alignLeft {
+  justify-content: flex-start;
+}
+
+.alignRight {
+  justify-content: flex-end;
+}
+
+.message {
+  max-width: 60%;
+  margin-bottom: 2px;
+}
+
+.message_align_right {
+  text-align: right;
+  padding: 5px 5px;
+  background-color: rgb(207, 215, 221);
+  border-radius: 5px;
+}
+
+.message_align_center {
+  text-align: center;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  line-height: 1.6;
+}
+
+.mb_10px {
+  margin-bottom: 10px;
+}
