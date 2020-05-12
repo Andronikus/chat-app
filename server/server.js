@@ -1,19 +1,36 @@
 const app = require("express")();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
+const cors = require("cors");
 
 const route = require("./router");
-const { addUser, removeUser, getUserById, getUsersInRoom } = require("./users");
+const {
+  addUser,
+  removeUser,
+  getUserById,
+  getUsersInRoom,
+  printUsers,
+} = require("./users");
 
 const PORT = process.env.PORT || 5000;
 
+app.use(cors());
 app.use(route);
 
 io.on("connection", (socket) => {
-  console.log("Someone connect to me!");
-
   socket.on("disconnect", () => {
     console.log("Bye! Nice to see you!");
+    printUsers();
+    console.log("socket id:", socket.id);
+    const leftUser = removeUser(socket.id);
+    printUsers();
+
+    if (leftUser) {
+      io.to(leftUser.room).emit("message", {
+        user: "admin",
+        text: `${leftUser.nickname} was left chat room!`,
+      });
+    }
   });
 
   socket.on("join", ({ nickname, room }, callback) => {
@@ -42,7 +59,6 @@ io.on("connection", (socket) => {
     const user = getUserById(socket.id);
 
     if (user) {
-      console.log("emit message to room");
       io.to(user.room).emit("message", { user: user.nickname, text });
     }
     callback();
