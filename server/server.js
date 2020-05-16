@@ -2,6 +2,7 @@ const app = require("express")();
 const server = require("http").Server(app);
 const io = require("socket.io")(server);
 const cors = require("cors");
+const bodyParser = require("body-parser");
 
 const route = require("./router");
 const {
@@ -15,39 +16,43 @@ const {
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
+app.use(bodyParser.json());
 app.use(route);
 
 io.on("connection", (socket) => {
   socket.on("disconnect", () => {
     console.log("Bye! Nice to see you!");
-    printUsers();
-    console.log("socket id:", socket.id);
     const leftUser = removeUser(socket.id);
-    printUsers();
 
     if (leftUser) {
       io.to(leftUser.room).emit("message", {
-        user: "admin",
+        nickname: "admin",
         text: `${leftUser.nickname} was left chat room!`,
       });
     }
   });
 
   socket.on("join", ({ nickname, room }, callback) => {
-    const { error, user } = addUser({ id: socket.id, nickname, room });
+    const userInfo = {
+      id: socket.id,
+      nickname,
+      room,
+    };
+
+    const { error, user } = addUser(userInfo);
 
     if (error) {
       return callback(error);
     }
 
     socket.emit("message", {
-      user: "admin",
-      text: `${nickname}, Welcome to ${room} chat room`,
+      nickname: "admin",
+      text: `${user.nickname}, Welcome to ${user.room} chat room`,
     });
 
     socket.broadcast.to(user.room).emit("message", {
-      user: "admin",
-      text: `${nickname},joined to room`,
+      nickname: "admin",
+      text: `${user.nickname},joined to room`,
     });
 
     socket.join(user.room);
@@ -59,7 +64,7 @@ io.on("connection", (socket) => {
     const user = getUserById(socket.id);
 
     if (user) {
-      io.to(user.room).emit("message", { user: user.nickname, text });
+      io.to(user.room).emit("message", { nickname: user.nickname, text });
     }
     callback();
   });

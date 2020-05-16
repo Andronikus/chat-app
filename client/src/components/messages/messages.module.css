@@ -2,4 +2,16 @@
   height: 80%;
   padding: 10px 20px;
   overflow-y: scroll;
+  position: relative;
+}
+
+.scroll {
+  width: 10px;
+  height: 10px;
+  border-radius: 50px;
+  background-color: #6599e6;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
 }

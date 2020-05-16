@@ -24,8 +24,8 @@ const Chat = ({ location, history }) => {
 
     socket = io(ENDPOINT);
 
-    socket.on("message", (message) => {
-      setChatMessages((chatMessages) => [...chatMessages, message]);
+    socket.on("message", ({ nickname, text }) => {
+      setChatMessages((chatMessages) => [...chatMessages, { nickname, text, sendAt: new Date() }]);
     });
 
     socket.emit("join", { nickname, room }, (error) => {
@@ -37,9 +37,16 @@ const Chat = ({ location, history }) => {
     };
   }, [location.search]);
 
+  useEffect(() => {
+    console.log("Chat::", chatMessages);
+  }, [chatMessages]);
+
   const sendMessage = (e) => {
     e.preventDefault();
-    socket.emit("sendMessage", { text }, () => setText(""));
+
+    if (text && text.trim().length > 0) {
+      socket.emit("sendMessage", { text }, () => setText(""));
+    }
   };
 
   const onClickHandler = () => {
@@ -50,7 +57,7 @@ const Chat = ({ location, history }) => {
   return (
     <div className={styles.container}>
       <ChatHeader nickname={nickname} clickHandler={onClickHandler} />
-      <Messages user={nickname} chatMessages={chatMessages} />
+      <Messages nickname={nickname} chatMessages={chatMessages} />
       <SendMessage text={text} setText={setText} sendMessage={sendMessage} />
     </div>
   );

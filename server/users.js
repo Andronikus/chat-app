@@ -5,10 +5,9 @@ const printUsers = () => {
 };
 
 const addUser = ({ id, nickname, room }) => {
-  nickname = normalizeInput(nickname);
-  room = normalizeInput(room);
+  const nicknameNormalized = normalizeInput(nickname);
 
-  const userIdx = getUserIdx({ nickname, room });
+  const userIdx = getUserIdx({ nicknameNormalized, room });
 
   if (userIdx !== -1) {
     return {
@@ -16,7 +15,7 @@ const addUser = ({ id, nickname, room }) => {
     };
   }
 
-  users.push({ id, nickname, room });
+  users.push({ id, nicknameNormalized, nickname, room });
 
   return { user: { id, nickname, room } };
 };
@@ -50,9 +49,10 @@ const getUsersInRoom = (room) => {
   return users.find((user) => user.room === room);
 };
 
-const getUserIdx = ({ nickname, room }) => {
+const getUserIdx = ({ nicknameNormalized, room }) => {
   return users.findIndex(
-    (user) => user.nickname === nickname && user.room === room
+    (user) =>
+      user.nicknameNormalized === nicknameNormalized && user.room === room
   );
 };
 
@@ -64,4 +64,5 @@ module.exports = {
   getUserById,
   getUsersInRoom,
   printUsers,
+  getUserIdx,
 };

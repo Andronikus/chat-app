@@ -14,11 +14,10 @@ const SendMessage = ({ text, setText, sendMessage }) => {
       />
       <button
         type="submit"
-        className={styles.button}
+        className={styles["button"]}
         onClick={(e) => sendMessage(e)}
       >
-        {" "}
-        <ion-icon name="send-outline"></ion-icon>
+        Send
       </button>
     </div>
   );

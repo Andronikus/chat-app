@@ -9,8 +9,10 @@
 .input {
   width: 90%;
   height: 100%;
-  border: 1px solid rgb(85, 82, 82);
   padding: 0 10px;
+  border: none;
+  border-top: 1px solid rgb(85, 82, 82);
+  font-size: 1rem;
 }
 
 .button {
@@ -18,4 +20,6 @@
   height: 100%;
   border: 1px solid rgb(85, 82, 82);
   cursor: pointer;
+  text-transform: uppercase;
+  background-color: rgb(208, 208, 208);
 }

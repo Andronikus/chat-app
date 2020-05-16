@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 
 import styles from "./join.module.css";
 
-const Join = () => {
+const Join = ({ history }) => {
   const [nickname, setNickname] = useState("");
   const [room, setRoom] = useState("");
+  const [inputValidation, setInputValidation] = useState({ status: "valid", reason: "", styles: [styles["nickname-input"]] });
+
 
   const changeHandler = (e) => {
     switch (e.target.name) {
       case "nickname":
         setNickname(e.target.value);
+
+        if (inputValidation && inputValidation.status === "invalid") {
+          setInputValidation({ status: "valid", reason: "", styles: [styles["nickname-input"]] });
+        }
         break;
       case "room":
         setRoom(e.target.value);
@@ -19,6 +25,24 @@ const Join = () => {
         console.log();
     }
   };
+
+  const onClickHandler = () => {
+
+    if (!nickname || !room) {
+      return;
+    }
+
+    fetch(`http://localhost:5000/getUser?nickname=${nickname}&room=${room}`, { method: 'GET', cache: 'no-cache' })
+      .then(response => response.json())
+      .then(data => {
+        if (data.nickname) {
+          setInputValidation((inputValidation) => ({ status: "invalid", reason: "nickname already taken", styles: [...inputValidation.styles, styles["invalid-input"]] }));
+        } else {
+          history.push(`/chat?nickname=${nickname}&room=${room}`);
+        }
+      })
+      .catch(error => console.log(error));
+  }
 
   return (
     <div className={styles.container}>
@@ -30,12 +54,13 @@ const Join = () => {
           placeholder="Your nickname"
           onChange={changeHandler}
           name="nickname"
+          className={inputValidation.styles.join(" ")}
         />
+        {inputValidation.status === "invalid" ? <span className={styles["invalid-reason"]}>{inputValidation.reason}</span> : null}
       </div>
-
       <div className={styles.inputContainer}>
         <label htmlFor="room">room</label>
-        <select name="room" onChange={changeHandler}>
+        <select name="room" className={styles["room-select"]} onChange={changeHandler}>
           <option defaultValue value="">
             Select room
           </option>
@@ -44,7 +69,12 @@ const Join = () => {
           <option value="css">Css</option>
         </select>
       </div>
+      <div className={styles.joinButton}>
+        <button onClick={() => onClickHandler()} >Join now!</button>
+      </div>
 
+
+      {/*
       <Link
         to={`/chat?nickname=${nickname}&room=${room}`}
         className={styles.joinButton}
@@ -52,6 +82,7 @@ const Join = () => {
       >
         <button type="submit">Join now!</button>
       </Link>
+      */}
     </div>
   );
 };
