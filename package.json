@@ -6,12 +6,12 @@
     "node": "11.7.x"
   },
   "scripts": {
-    "client": "cd client & npm start",
-    "build": "cd client & npm run build",
-    "server": "cd server & nodemon start",
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "server": "cd server && nodemon start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd server & node server.js",
-    "heroku-postbuild": "cd client & npm install && npm run build"
+    "start": "cd server && node server.js",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "Tiago Roque",
   "license": "ISC"
