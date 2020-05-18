@@ -5,7 +5,6 @@ import io from "socket.io-client";
 import ChatHeader from "../chat-header/chat-header.component";
 import Messages from "../messages/messages.component";
 import SendMessage from "../send-message/send-message.component";
-import { ENDPOINT } from "../../utils/constants";
 
 import styles from "./chat.module.css";
 
@@ -20,7 +19,7 @@ const Chat = ({ location, history }) => {
     const { nickname, room } = queryString.parse(location.search);
     setNickname(nickname);
 
-    socket = io(ENDPOINT);
+    socket = io("/");
 
     socket.on("message", ({ nickname, text }) => {
       setChatMessages((chatMessages) => [...chatMessages, { nickname, text, sendAt: new Date() }]);
