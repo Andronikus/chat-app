@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+
+import { BACKEND_URL } from "../../utils/constants";
 
 import styles from "./join.module.css";
 
@@ -32,7 +33,7 @@ const Join = ({ history }) => {
       return;
     }
 
-    fetch(`http://localhost:5000/getUser?nickname=${nickname}&room=${room}`, { method: 'GET', cache: 'no-cache' })
+    fetch(`${BACKEND_URL}/getUser?nickname=${nickname}&room=${room}`, { method: 'GET', cache: 'no-cache' })
       .then(response => response.json())
       .then(data => {
         if (data.nickname) {
@@ -72,17 +73,6 @@ const Join = ({ history }) => {
       <div className={styles.joinButton}>
         <button onClick={() => onClickHandler()} >Join now!</button>
       </div>
-
-
-      {/*
-      <Link
-        to={`/chat?nickname=${nickname}&room=${room}`}
-        className={styles.joinButton}
-        onClick={(e) => (!nickname || !room ? e.preventDefault() : null)}
-      >
-        <button type="submit">Join now!</button>
-      </Link>
-      */}
     </div>
   );
 };
