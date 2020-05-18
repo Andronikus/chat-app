@@ -21,7 +21,6 @@ app.use(route);
 
 io.on("connection", (socket) => {
   socket.on("disconnect", () => {
-    console.log("Bye! Nice to see you!");
     const leftUser = removeUser(socket.id);
 
     if (leftUser) {
