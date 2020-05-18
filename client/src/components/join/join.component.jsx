@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import { BACKEND_URL } from "../../utils/constants";
-
 import styles from "./join.module.css";
 
 const Join = ({ history }) => {
@@ -32,7 +30,7 @@ const Join = ({ history }) => {
       return;
     }
 
-    fetch(`${BACKEND_URL}/getUser?nickname=${nickname}&room=${room}`, { method: 'GET', cache: 'no-cache' })
+    fetch(`/getUser?nickname=${nickname}&room=${room}`, { method: 'GET', cache: 'no-cache' })
       .then(response => response.json())
       .then(data => {
         if (data.nickname) {
