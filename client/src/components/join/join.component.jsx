@@ -23,7 +23,6 @@ const Join = ({ history }) => {
         setRoom(e.target.value);
         break;
       default:
-        console.log();
     }
   };
 

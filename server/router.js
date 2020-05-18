@@ -2,10 +2,6 @@ const router = require("express").Router();
 
 const { getUserIdx } = require("./users");
 
-router.get("/", (req, res) => {
-  res.send("Server is up and runnig");
-});
-
 router.get("/getUser", (req, res) => {
   const { nickname, room } = req.query;
   const nicknameNormalized = nickname.trim().toLowerCase();

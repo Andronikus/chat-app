@@ -5,22 +5,20 @@ import io from "socket.io-client";
 import ChatHeader from "../chat-header/chat-header.component";
 import Messages from "../messages/messages.component";
 import SendMessage from "../send-message/send-message.component";
+import { ENDPOINT } from "../../utils/constants";
 
 import styles from "./chat.module.css";
 
 let socket;
-const ENDPOINT = "localhost:5000";
 
 const Chat = ({ location, history }) => {
   const [nickname, setNickname] = useState("");
-  const [room, setRoom] = useState("");
   const [text, setText] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
 
   useEffect(() => {
     const { nickname, room } = queryString.parse(location.search);
     setNickname(nickname);
-    setRoom(room);
 
     socket = io(ENDPOINT);
 
@@ -36,10 +34,6 @@ const Chat = ({ location, history }) => {
       socket.off();
     };
   }, [location.search]);
-
-  useEffect(() => {
-    console.log("Chat::", chatMessages);
-  }, [chatMessages]);
 
   const sendMessage = (e) => {
     e.preventDefault();

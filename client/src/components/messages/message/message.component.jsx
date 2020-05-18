@@ -14,8 +14,6 @@ const Message = ({ nickname, message, showWhatUserSendMessage }) => {
 
   let userInfo;
 
-  console.log("Message:: ", showWhatUserSendMessage);
-
   if (!showWhatUserSendMessage) {
     userInfoStyles.push(styles["not-display"]);
   }
