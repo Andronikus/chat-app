@@ -13,6 +13,9 @@
   border: none;
   border-top: 1px solid rgb(85, 82, 82);
   font-size: 1rem;
+  max-width: 90%;
+  word-wrap: normal;
+  word-break: normal;
 }
 
 .button {
@@ -22,4 +25,14 @@
   cursor: pointer;
   text-transform: uppercase;
   background-color: rgb(208, 208, 208);
+}
+
+@media only screen and (max-device-width: 414px) {
+  .input {
+    width: 85%;
+  }
+
+  .button {
+    width: 15%;
+  }
 }

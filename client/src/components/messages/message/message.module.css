@@ -34,17 +34,14 @@
   padding: 4px 4px;
 }
 
-.message-background {
+.message-bg-ownwer {
   background-color: rgb(207, 215, 221);
   border-radius: 5px;
 }
 
-.message-align-right {
-  text-align: right;
-}
-
-.message_align_center {
-  text-align: center;
+.message-bg-other {
+  background-color: rgb(231, 233, 234);
+  border-radius: 5px;
 }
 
 .user {
@@ -52,11 +49,20 @@
   padding: 0px 4px;
 }
 
+.user-align-right {
+  text-align: right;
+}
+
+.user_align_left {
+  text-align: center;
+}
+
 .text {
   display: flex;
   align-items: center;
   line-height: 1.5;
   font-size: 0.9rem;
+  padding: 2px 4px;
 }
 
 .not-display {
