@@ -4,7 +4,7 @@ import Message from "./message/message.component";
 
 import styles from "./messages.module.css";
 
-const Messages = ({ nickname, chatMessages }) => {
+export const Messages = ({ nickname, chatMessages }) => {
 
   const containerElem = useRef(null);
   const scrollElem = useRef(null);
@@ -34,5 +34,3 @@ const Messages = ({ nickname, chatMessages }) => {
     </div>
   );
 };
-
-export default Messages;

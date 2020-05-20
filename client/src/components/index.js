@@ -1,2 +1,3 @@
-export { default as Chat } from "./chat/chat.component";
-export { default as Join } from "./join/join.component";
+export { ChatHeader } from "./chat-header/chat-header.component";
+export { Messages } from "./messages/messages.component";
+export { SendMessage } from "./send-message/send-message.component";

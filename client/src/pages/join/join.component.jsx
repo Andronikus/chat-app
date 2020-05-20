@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+import UserContext from '../../contexts';
 
 import styles from "./join.module.css";
 
-const Join = ({ history }) => {
-  const [nickname, setNickname] = useState("");
-  const [room, setRoom] = useState("");
+export const Join = ({ history }) => {
+  const { nickname, room, setNickname, setRoom } = useContext(UserContext);
   const [inputValidation, setInputValidation] = useState({ status: "valid", reason: "", styles: [styles["nickname-input"]] });
-
 
   const changeHandler = (e) => {
     switch (e.target.name) {
@@ -36,7 +36,7 @@ const Join = ({ history }) => {
         if (data.nickname) {
           setInputValidation((inputValidation) => ({ status: "invalid", reason: "nickname already taken", styles: [...inputValidation.styles, styles["invalid-input"]] }));
         } else {
-          history.push(`/chat?nickname=${nickname}&room=${room}`);
+          history.push(`/chat`);
         }
       })
       .catch(error => console.log(error));
@@ -73,5 +73,3 @@ const Join = ({ history }) => {
     </div>
   );
 };
-
-export default Join;
