@@ -1,24 +1,22 @@
-import React, { useState, useEffect } from "react";
-import queryString from "query-string";
+import React, { useState, useEffect, useContext } from "react";
 import io from "socket.io-client";
 
-import ChatHeader from "../chat-header/chat-header.component";
-import Messages from "../messages/messages.component";
-import SendMessage from "../send-message/send-message.component";
+import { ChatHeader, Messages, SendMessage } from '../../components';
+import UserContext from '../../contexts';
+
 
 import styles from "./chat.module.css";
 
 let socket;
 
-const Chat = ({ location, history }) => {
-  const [nickname, setNickname] = useState("");
+export const Chat = ({ history }) => {
+
+  const { nickname, room } = useContext(UserContext);
+
   const [text, setText] = useState("");
   const [chatMessages, setChatMessages] = useState([]);
 
   useEffect(() => {
-    const { nickname, room } = queryString.parse(location.search);
-    setNickname(nickname);
-
     socket = io("/");
 
     socket.on("message", ({ nickname, text }) => {
@@ -32,7 +30,7 @@ const Chat = ({ location, history }) => {
     return () => {
       socket.off();
     };
-  }, [location.search]);
+  }, [nickname, room]);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -55,5 +53,3 @@ const Chat = ({ location, history }) => {
     </div>
   );
 };
-
-export default Chat;

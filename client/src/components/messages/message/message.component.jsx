@@ -26,7 +26,8 @@ const Message = ({ nickname, message, showWhatUserSendMessage }) => {
     containerStyles.push(styles.alignRight);
     userInfoStyles.push(styles["user"]);
     messageStyles.push(styles["message"]);
-    messageStyles.push(styles["message-background"]);
+    textStyles.push(styles["message-bg-ownwer"]);
+    textStyles.push(styles["user-align-right"]);
 
     userInfo = `${getHHMMFromDate(message.sendAt)}`;
 
@@ -34,7 +35,9 @@ const Message = ({ nickname, message, showWhatUserSendMessage }) => {
     containerStyles.push(styles.alignLeft);
     userInfoStyles.push(styles["user"]);
     messageStyles.push(styles["message"]);
-    messageStyles.push(styles["message-background"]);
+
+    textStyles.push(styles["user_align_left"]);
+    textStyles.push(styles["message-bg-other"]);
 
     userInfo = `${message.nickname}, ${getHHMMFromDate(message.sendAt)}`;
   }

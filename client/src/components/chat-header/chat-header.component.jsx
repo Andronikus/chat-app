@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./chat-header.module.css";
 
-const ChatHeader = ({ nickname, clickHandler }) => {
+export const ChatHeader = ({ nickname, clickHandler }) => {
   return (
     <div className={styles.container}>
       <div className={styles.userInfo}>
@@ -19,5 +19,3 @@ const ChatHeader = ({ nickname, clickHandler }) => {
     </div>
   );
 };
-
-export default ChatHeader;

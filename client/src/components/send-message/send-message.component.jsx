@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./send-message.module.css";
 
-const SendMessage = ({ text, setText, sendMessage }) => {
+export const SendMessage = ({ text, setText, sendMessage }) => {
   return (
     <div className={styles.container}>
       <input
@@ -22,5 +22,3 @@ const SendMessage = ({ text, setText, sendMessage }) => {
     </div>
   );
 };
-
-export default SendMessage;
